@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Password Tool</title>
+
+<style>
+*{box-sizing:border-box;font-family:Arial;margin:0;padding:0}
+
+body{
+  background:#0f172a;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.card{
+  background:#1e293b;
+  width:95%;
+  max-width:420px;
+  padding:25px;
+  border-radius:16px;
+  text-align:center;
+  color:white;
+  box-shadow:0 0 20px rgba(0,0,0,.4);
+}
+
+input{
+  width:100%;
+  padding:14px;
+  margin:10px 0;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:10px;
+  border:none;
+  border-radius:10px;
+  background:#22c55e;
+  color:white;
+  font-size:18px;
+  cursor:pointer;
+}
+
+.strength{
+  margin-top:15px;
+  font-size:20px;
+}
+
+.bar{
+  height:10px;
+  background:#334155;
+  border-radius:10px;
+  overflow:hidden;
+  margin-top:10px;
+}
+
+.fill{
+  height:100%;
+  width:0%;
+  background:#22c55e;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+<h2>Password Tool</h2>
+
+<input type="text" id="password" placeholder="Enter password">
+<button onclick="checkStrength()">Check Strength</button>
+
+<div class="bar"><div class="fill" id="fill"></div></div>
+<div class="strength" id="result"></div>
+
+<hr style="margin:20px 0">
+
+<button onclick="generatePassword()">Generate Strong Password</button>
+<input type="text" id="generated" readonly>
+
+</div>
+
+<script>
+function checkStrength(){
+  const pass = document.getElementById("password").value;
+  const result = document.getElementById("result");
+  const fill = document.getElementById("fill");
+
+  let score = 0;
+  if(pass.length > 7) score++;
+  if(/[A-Z]/.test(pass)) score++;
+  if(/[0-9]/.test(pass)) score++;
+  if(/[^A-Za-z0-9]/.test(pass)) score++;
+
+  if(pass.length == 0){
+    result.innerText="";
+    fill.style.width="0%";
+    return;
+  }
+
+  if(score <= 1){
+    result.innerText="Weak";
+    fill.style.width="25%";
+    fill.style.background="red";
+  }
+  else if(score == 2){
+    result.innerText="Medium";
+    fill.style.width="50%";
+    fill.style.background="orange";
+  }
+  else if(score == 3){
+    result.innerText="Strong";
+    fill.style.width="75%";
+    fill.style.background="yellow";
+  }
+  else{
+    result.innerText="Very Strong";
+    fill.style.width="100%";
+    fill.style.background="lightgreen";
+  }
+}
+
+function generatePassword(){
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()";
+  let pass="";
+  for(let i=0;i<14;i++){
+    pass += chars.charAt(Math.floor(Math.random()*chars.length));
+  }
+  document.getElementById("generated").value = pass;
+}
+</script>
+
+</body>
+</html>
+    
+  </body>
+  
+</html>
